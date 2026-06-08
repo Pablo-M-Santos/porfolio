@@ -1,8 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import {
+  ArrowRight,
+  Github,
+  Linkedin,
+  Mail,
+  MessageCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+import { socialLinks } from "@/data/portfolio-data";
+
+const iconMap = {
+  Github,
+  Linkedin,
+  Mail,
+  MessageCircle,
+};
 
 const metrics = [
   { label: "REST APIs", value: "Spring Boot" },
@@ -19,12 +34,10 @@ export function HeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center"
     >
-      {/* Minimal background */}
       <div className="absolute inset-0 bg-[#020617]">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950" />
       </div>
 
-      {/* Subtle grid */}
       <div
         className="absolute inset-0 opacity-[0.015]"
         style={{
@@ -51,7 +64,6 @@ export function HeroSection() {
             <span className="text-emerald-400">frontend moderno</span>
           </motion.h1>
 
-          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,7 +75,6 @@ export function HeroSection() {
             performaticas.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -90,41 +101,30 @@ export function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Social links */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-8 flex items-center justify-center gap-4"
           >
-            <a
-              href="https://github.com/pablooliveiraweb"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
-              aria-label="GitHub"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-            <a
-              href="https://linkedin.com/in/pablosantosofc"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
-            <a
-              href="mailto:pablooliveiraweb@gmail.com"
-              className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
-              aria-label="Email"
-            >
-              <Mail className="h-5 w-5" />
-            </a>
+            {socialLinks.map((social) => {
+              const Icon = iconMap[social.icon as keyof typeof iconMap];
+
+              return (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
+                  aria-label={social.name}
+                >
+                  {Icon && <Icon className="h-5 w-5" />}
+                </a>
+              );
+            })}
           </motion.div>
 
-          {/* Engineering metrics */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -151,7 +151,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
