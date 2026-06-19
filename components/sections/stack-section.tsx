@@ -1,35 +1,36 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
+import { sectionBackgrounds } from "@/styles/sections-backgrounds";
+
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const backendStack = [
-  "Java 11/17",
+  "Java",
   "Spring Boot",
   "Spring Security",
   "JPA/Hibernate",
   "JUnit",
   "Swagger",
   "PostgreSQL",
+  "Oracle",
   "MySQL",
   "REST APIs",
   "Docker",
-]
+];
 
 const frontendStack = [
-  "Vue.js 3",
+  "Vue.js",
+  "React",
   "Nuxt.js",
   "TypeScript",
   "Pinia",
   "Quasar",
   "TailwindCSS",
-]
+];
 
-const mobileStack = [
-  "Flutter",
-  "Dart",
-]
+const mobileStack = ["Flutter", "Dart"];
 
 const toolsStack = [
   "Git",
@@ -42,14 +43,17 @@ const toolsStack = [
   "Maven",
   "Scrum",
   "Kanban",
-]
+];
 
 export function StackSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="stack" className="py-24 md:py-32 relative">
+    <section
+      id="stack"
+      className={`relative py-24 md:py-32 transition-colors duration-700 ${sectionBackgrounds.stack}`}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -74,7 +78,9 @@ export function StackSection() {
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span className="text-sm font-medium text-slate-400">Backend</span>
+              <span className="text-sm font-medium text-slate-400">
+                Backend
+              </span>
             </div>
             <div className="flex flex-wrap gap-2">
               {backendStack.map((tech) => (
@@ -97,7 +103,9 @@ export function StackSection() {
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span className="text-sm font-medium text-slate-400">Frontend</span>
+              <span className="text-sm font-medium text-slate-400">
+                Frontend
+              </span>
             </div>
             <div className="flex flex-wrap gap-2">
               {frontendStack.map((tech) => (
@@ -143,7 +151,9 @@ export function StackSection() {
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-amber-400" />
-              <span className="text-sm font-medium text-slate-400">Tools & Metodologias</span>
+              <span className="text-sm font-medium text-slate-400">
+                Tools & Metodologias
+              </span>
             </div>
             <div className="flex flex-wrap gap-2">
               {toolsStack.map((tech) => (
@@ -158,6 +168,7 @@ export function StackSection() {
           </motion.div>
         </div>
       </div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#020617] pointer-events-none" />
     </section>
-  )
+  );
 }

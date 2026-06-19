@@ -12,7 +12,7 @@ export function Footer() {
 
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com/pablooliveiraweb"
+              href="https://github.com/Pablo-M-Santos"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
@@ -21,7 +21,7 @@ export function Footer() {
               <Github className="w-4 h-4" />
             </a>
             <a
-              href="https://linkedin.com/in/pablosantosofc"
+              href="https://www.linkedin.com/in/pablo-m-santos/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
@@ -30,7 +30,8 @@ export function Footer() {
               <Linkedin className="w-4 h-4" />
             </a>
             <a
-              href="mailto:pablooliveiraweb@gmail.com"
+              href="mailto:pablomoreirasantos.hp@gmail.com"
+              target="_blank"
               className="p-2 text-slate-500 hover:text-slate-300 transition-colors"
               aria-label="Email"
             >

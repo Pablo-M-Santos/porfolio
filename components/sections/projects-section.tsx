@@ -1,10 +1,12 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Github } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { sectionBackgrounds } from "@/styles/sections-backgrounds";
 
 const projects = [
   {
@@ -73,8 +75,13 @@ export function ProjectsSection() {
   });
 
   return (
-    <section id="projects" className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section
+      id="projects"
+      className={`relative py-24 md:py-32 transition-colors duration-700 ${sectionBackgrounds.projects}`}
+    >
+     <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#020617] to-transparent pointer-events-none" />
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -236,6 +243,7 @@ export function ProjectsSection() {
           ))}
         </div>
       </div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#020617] pointer-events-none" />
     </section>
   );
 }

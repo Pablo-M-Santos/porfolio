@@ -46,8 +46,8 @@ const stats = [
   },
 
   {
-    value: "Full-Stack",
-    label: "Frontend + Backend",
+    value: "Java + Vue",
+    label: "Stack principal",
   },
 
   {

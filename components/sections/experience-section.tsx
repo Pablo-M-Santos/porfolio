@@ -1,25 +1,22 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const experiences = [
   {
-    role: "Frontend Developer Jr",
+    role: "Desenvolvedor Front-end Jr",
     company: "SESATECH",
-    period: "2025 - Presente",
+    period: "2026 - Presente (5 meses)",
     description:
-      "Atuacao no desenvolvimento de aplicacoes web escalaveis utilizando Vue.js e Nuxt, com foco em performance, gerenciamento eficiente de estado e experiencia do usuario em sistemas com grande volume de dados.",
-
+      "Atuação no desenvolvimento e evolução de aplicações web escaláveis utilizando Vue.js e Nuxt.js. Foco em performance, arquitetura de componentes reutilizáveis e gerenciamento eficiente de dados em sistemas de alta complexidade com grande volume de requisições.",
     achievements: [
-      "Otimizacao de carregamento de dados com estrategias de cache e controle de requisicoes",
-      "Desenvolvimento de interfaces responsivas e componentizadas com foco em UX",
-      "Gerenciamento de estado complexo utilizando Pinia",
-      "Integracao de APIs RESTful em aplicacoes de alta complexidade",
-      "Colaboracao com times de backend e design em ambiente agil",
+      "Otimização do carregamento de dados através de estratégias avançadas de cache e controle de requisições.",
+      "Construção de interfaces modernas, responsivas e orientadas à experiência do usuário (UX/UI).",
+      "Gerenciamento de estado complexo e fluxos de dados globais utilizando Pinia.",
+      "Integração contínua com APIs RESTful e colaboração direta com times multidisciplinares em ambiente ágil (Scrum).",
     ],
-
     technologies: [
       "Vue.js",
       "Nuxt.js",
@@ -29,23 +26,19 @@ const experiences = [
       "REST APIs",
     ],
   },
-
   {
-    role: "Full-Stack Developer Jr",
-    company: "WDA Tecnologia & Inovacao",
-    period: "2024 - 2025",
+    role: "Desenvolvedor Full-Stack Jr",
+    company: "WDA Tecnologia & Inovação",
+    period: "2024 - 2026 (1 ano e 3 meses)",
     description:
-      "Desenvolvimento full-stack de aplicacoes web e mobile, atuando na construcao de APIs, interfaces responsivas e manutencao de sistemas utilizando Java, Spring Boot, Vue.js e Flutter.",
-
+      "Desenvolvimento full-stack de soluções web e mobile, assumindo responsabilidades na construção de APIs robustas, interfaces responsivas e manutenção de sistemas legados e novos produtos.",
     achievements: [
-      "Desenvolvimento e manutencao de APIs RESTful com Spring Boot",
-      "Criacao de interfaces modernas utilizando Vue.js e Quasar",
-      "Desenvolvimento mobile com Flutter/Dart",
-      "Implementacao de testes unitarios e de integracao",
-      "Documentacao tecnica de APIs com Swagger/OpenAPI",
-      "Participacao ativa em cerimonias Scrum e entregas continuas",
+      "Desenvolvimento mobile focado na criação de telas e integração com backend utilizando Flutter e Dart.",
+      "Construção e manutenção de APIs RESTful utilizando Java e Spring Boot, garantindo a segurança e estabilidade dos serviços.",
+      "Implementação de testes unitários e de integração para assegurar a qualidade do código e cobertura da aplicação.",
+      "Desenvolvimento de interfaces de usuário (UI) dinâmicas e intuitivas utilizando Vue.js e Quasar Framework.",
+      "Elaboração de documentações técnicas de APIs com Swagger/OpenAPI e prototipação de novas funcionalidades.",
     ],
-
     technologies: [
       "Java",
       "Spring Boot",
@@ -58,22 +51,18 @@ const experiences = [
       "Swagger",
     ],
   },
-
   {
-    role: "Full-Stack Developer Intern",
-    company: "WDA Tecnologia & Inovacao",
-    period: "2024",
+    role: "Estagiário Full-Stack",
+    company: "WDA Tecnologia & Inovação",
+    period: "2024 (6 meses)",
     description:
-      "Inicio da trajetoria profissional atuando no desenvolvimento e manutencao de aplicacoes web, contribuindo com backend, frontend, testes e documentacao tecnica.",
-
+      "Início da trajetória profissional atuando no ecossistema de desenvolvimento web, contribuindo ativamente tanto no backend quanto no frontend através de metodologias ágeis.",
     achievements: [
-      "Implementacao de APIs e funcionalidades backend com Spring Boot",
-      "Desenvolvimento de interfaces responsivas utilizando Vue.js",
-      "Criacao de testes unitarios e integracao",
-      "Documentacao de APIs utilizando Swagger",
-      "Utilizacao de Git/GitLab em fluxo colaborativo",
+      "Implementação de novas funcionalidades e endpoints em APIs Spring Boot.",
+      "Criação de componentes frontend responsivos e fluidos com Vue.js.",
+      "Garantia de qualidade de software através da escrita de testes unitários e validações de rotas.",
+      "Documentação de processos e APIs utilizando Swagger e versionamento de código estruturado via GitLab.",
     ],
-
     technologies: [
       "Java",
       "Spring Boot",
@@ -84,15 +73,38 @@ const experiences = [
       "REST APIs",
     ],
   },
-]
-
+  {
+    role: "Técnico em Informática",
+    company: "EEEP Profª Luiza de Teodoro Vieira",
+    period: "2022 - 2024 (3 anos)",
+    description:
+      "Formação técnica com forte base prática em desenvolvimento de software, simulando ambientes reais de produção, entrega de projetos e controle de qualidade.",
+    achievements: [
+      "Desenvolvimento de aplicações web completas aplicando conceitos de HTML5, CSS3, JavaScript e Vue.js.",
+      "Modelagem de bancos de dados relacionais (MySQL/PostgreSQL) e criação de backends estruturados com PHP (Laravel) e Java (Spring Boot).",
+      "Domínio de versionamento de código com Git/GitHub, trabalhando com fluxos de branchs, commits e pull requests.",
+      "Vivência com metodologias ágeis, organização de fluxos de trabalho e cumprimento de prazos em projetos de equipe.",
+    ],
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "PHP",
+      "Laravel",
+      "JavaScript",
+      "Vue.js",
+      "MySQL",
+      "PostgreSQL",
+      "Git",
+    ],
+  },
+];
 export function ExperienceSection() {
-  const ref = useRef(null)
+  const ref = useRef(null);
 
   const isInView = useInView(ref, {
     once: true,
     margin: "-100px",
-  })
+  });
 
   return (
     <section id="experience" className="py-24 md:py-32 relative">
@@ -175,9 +187,7 @@ export function ExperienceSection() {
                     >
                       <span className="text-emerald-400 mt-1">•</span>
 
-                      <span className="leading-relaxed">
-                        {achievement}
-                      </span>
+                      <span className="leading-relaxed">{achievement}</span>
                     </li>
                   ))}
                 </ul>
@@ -207,5 +217,5 @@ export function ExperienceSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

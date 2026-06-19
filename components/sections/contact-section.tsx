@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { Github, Linkedin, Mail, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function ContactSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="contact" className="py-24 md:py-32 relative">
@@ -25,8 +25,8 @@ export function ContactSection() {
           </h2>
 
           <p className="text-slate-400 text-lg mb-10">
-            Estou disponivel para novos projetos e oportunidades.
-            Entre em contato para conversarmos sobre como posso ajudar.
+            Estou disponivel para novos projetos e oportunidades. Entre em
+            contato para conversarmos sobre como posso ajudar.
           </p>
 
           <motion.div
@@ -40,7 +40,7 @@ export function ContactSection() {
               className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-medium px-8 h-12"
               asChild
             >
-              <a href="mailto:pablooliveiraweb@gmail.com">
+              <a href="mailto:pablomoreirasantos.hp@gmail.com" target="_blank">
                 Enviar email
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
@@ -55,7 +55,7 @@ export function ContactSection() {
             className="flex items-center justify-center gap-4"
           >
             <a
-              href="https://github.com/pablooliveiraweb"
+              href="https://github.com/Pablo-M-Santos"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 text-slate-500 hover:text-slate-300 transition-colors"
@@ -64,7 +64,7 @@ export function ContactSection() {
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com/in/pablosantosofc"
+              href="https://www.linkedin.com/in/pablo-m-santos/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 text-slate-500 hover:text-slate-300 transition-colors"
@@ -73,7 +73,8 @@ export function ContactSection() {
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="mailto:pablooliveiraweb@gmail.com"
+              href="mailto:pablomoreirasantos.hp@gmail.com"
+              target="_blank"
               className="p-3 text-slate-500 hover:text-slate-300 transition-colors"
               aria-label="Email"
             >
@@ -83,5 +84,5 @@ export function ContactSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

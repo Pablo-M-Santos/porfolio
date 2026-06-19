@@ -1,85 +1,143 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 type TerminalItem =
-  | {
-      type: "command";
-      command: string;
-      output: string;
-    }
-  | {
-      type: "system";
-      text: string;
-    };
+  | { type: "command"; command: string; output: string | string[] }
+  | { type: "system"; text: string };
 
 const terminalItems: TerminalItem[] = [
   {
     type: "system",
     text: "Inicializando ambiente de desenvolvimento...",
   },
-
   {
     type: "command",
     command: "whoami",
-    output: "Pablo Oliveira • Desenvolvedor Full-Stack",
+    output: "Pablo Moreira Santos  •  Full-Stack Júnior  •  Fortaleza, CE",
   },
-
+  {
+    type: "command",
+    command: "cat experiencia.json",
+    output: [
+      "SesaTech        →  2026 – atual   (Full-Stack Júnior)",
+      "WDA Tecnologia  →  2024 – 2026 ( 1 ano e 8 meses )   (Full-Stack Júnior)",
+      "EEEP Luiza      →  2022 – 2024 ( 3 anos )  (Desenvolvedor)",
+    ],
+  },
   {
     type: "command",
     command: "cat stack.json",
-    output: "Java • Spring Boot • Vue.js • Nuxt.js • TypeScript • Flutter",
+    output: [
+      "backend:   Java  •  Spring Boot  •  REST APIs  •  Docker",
+      "frontend:  Vue.js  •  React.js  •  TypeScript  •  Nuxt.js",
+      "dados:     PostgreSQL  •  MySQL  •  Oracle  •  SQL",
+      "infra:     AWS  •  CI/CD  •  Kafka  •  RabbitMQ  (estudos)",
+    ],
   },
-
   {
     type: "command",
-    command: "ls projetos/",
-    output:
-      "capex-platform • dashboard-analytics • mobile-app • internal-system",
+    command: "git log --oneline -3",
+    output: [
+      "a3f91c2  perf: otimização SQL → -40% tempo de resposta",
+      "b17e084  feat: lazy loading + cache local no front-end",
+      "c09d3a1  docs: documentação técnica com Swagger/OpenAPI",
+    ],
   },
-
   {
     type: "command",
-    command: "git status",
-    output: "Sempre aprendendo e construindo soluções escaláveis.",
+    command: "cat aprendendo.txt",
+    output: "Aprofundando em arquitetura de mensageria e cloud (AWS) ☁️",
   },
-
   {
     type: "system",
-    text: "Ambiente pronto.",
+    text: "Ambiente pronto. Bora construir.",
   },
 ];
 
+function LiveClock() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const tick = () =>
+      setTime(
+        new Date().toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+      );
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return <span className="tabular-nums">{time}</span>;
+}
+
+function OutputLines({ output }: { output: string | string[] }) {
+  const lines = Array.isArray(output) ? output : [output];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25 }}
+      className="pl-6 space-y-0.5"
+    >
+      {lines.map((line, i) => (
+        <div
+          key={i}
+          className="leading-relaxed text-slate-500 font-mono text-sm"
+        >
+          {line}
+        </div>
+      ))}
+    </motion.div>
+  );
+}
+
 export function TerminalSection() {
   const ref = useRef(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
-  const isInView = useInView(ref, {
-    once: true,
-    margin: "-100px",
-  });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const [currentLine, setCurrentLine] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [showOutput, setShowOutput] = useState(false);
   const [completedLines, setCompletedLines] = useState<number[]>([]);
+  const [idle, setIdle] = useState(false);
+  const [replayKey, setReplayKey] = useState(0);
+
+  const reset = useCallback(() => {
+    setCurrentLine(0);
+    setDisplayedText("");
+    setShowOutput(false);
+    setCompletedLines([]);
+    setIdle(false);
+    setReplayKey((k) => k + 1);
+  }, []);
+
+  // Scroll interno do terminal — não afeta a página
+  useEffect(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    }
+  }, [completedLines, showOutput]);
 
   useEffect(() => {
     if (!isInView) return;
 
     const currentItem = terminalItems[currentLine];
-
     if (!currentItem) return;
 
-    let fullText = "";
-
-    if (currentItem.type === "command") {
-      fullText = currentItem.command;
-    } else {
-      fullText = currentItem.text;
-    }
+    const fullText =
+      currentItem.type === "command" ? currentItem.command : currentItem.text;
 
     let charIndex = 0;
+
+    const baseDelay = currentItem.type === "system" ? 15 : 32;
 
     const typeInterval = setInterval(
       () => {
@@ -92,34 +150,41 @@ export function TerminalSection() {
           setTimeout(() => {
             setShowOutput(true);
 
-            setTimeout(
-              () => {
-                setCompletedLines((prev) => [...prev, currentLine]);
+            const outputPause =
+              currentItem.type === "command"
+                ? Array.isArray(currentItem.output)
+                  ? 1600
+                  : 1200
+                : 600;
 
-                setShowOutput(false);
-                setDisplayedText("");
+            setTimeout(() => {
+              setCompletedLines((prev) => [...prev, currentLine]);
+              setShowOutput(false);
+              setDisplayedText("");
 
-                if (currentLine < terminalItems.length - 1) {
-                  setCurrentLine((prev) => prev + 1);
-                }
-              },
-              currentItem.type === "command" ? 1400 : 700,
-            );
+              if (currentLine < terminalItems.length - 1) {
+                setCurrentLine((prev) => prev + 1);
+              } else {
+                setIdle(true);
+                // Auto-restart after 5s
+                setTimeout(() => reset(), 10000);
+              }
+            }, outputPause);
           }, 150);
         }
       },
-      currentItem.type === "system" ? 18 : 35,
+      baseDelay + Math.random() * (currentItem.type === "system" ? 8 : 18),
     );
 
     return () => clearInterval(typeInterval);
-  }, [currentLine, isInView]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLine, isInView, replayKey]);
 
   return (
     <section className="relative overflow-hidden py-24 md:py-32">
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl" />
-
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
@@ -136,14 +201,12 @@ export function TerminalSection() {
             <span className="text-sm font-medium uppercase tracking-[0.25em] text-emerald-400">
               Engineering Console
             </span>
-
             <h2 className="mt-4 text-4xl font-bold tracking-tight text-white md:text-5xl">
               Ambiente de Desenvolvimento
             </h2>
-
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-400">
-              Uma visão rápida sobre mentalidade técnica, arquitetura e foco
-              atual em engenharia de software.
+              Uma visão rápida sobre trajetória, stack técnica e foco atual em
+              engenharia de software.
             </p>
           </div>
 
@@ -160,18 +223,8 @@ export function TerminalSection() {
             {/* Glow */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-400/5 via-transparent to-transparent" />
 
-            {/* Noise */}
-            <div className="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-soft-light bg-[url('/noise.png')]" />
-
             {/* Header */}
-            <div
-              className="
-                flex items-center justify-between
-                border-b border-slate-800
-                bg-slate-900/70
-                px-5 py-4
-              "
-            >
+            <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/70 px-5 py-4">
               <div className="flex items-center gap-4">
                 {/* Mac dots */}
                 <div className="flex gap-2">
@@ -179,127 +232,138 @@ export function TerminalSection() {
                   <div className="h-3 w-3 rounded-full bg-yellow-500/90" />
                   <div className="h-3 w-3 rounded-full bg-green-500/90" />
                 </div>
-
-                <span className="text-sm font-medium text-slate-400">
-                  pablo@engineering-console
+                <span className="text-sm font-mono font-medium text-slate-400">
+                  pablo@dev-console ~ zsh
                 </span>
               </div>
 
-              <div className="hidden items-center gap-2 font-mono text-xs text-slate-500 sm:flex">
-                <span>bash</span>
-                <span>•</span>
-                <span>developer-mode</span>
+              <div className="flex items-center gap-4">
+                {/* Live clock */}
+                <span className="hidden font-mono text-xs text-slate-500 sm:block">
+                  <LiveClock />
+                </span>
               </div>
             </div>
 
             {/* Body */}
-            <div className="min-h-[480px] space-y-5 p-6 font-mono text-sm md:p-8">
-              {/* Completed */}
-              {completedLines.map((lineIndex) => {
-                const item = terminalItems[lineIndex];
+            <div
+              ref={bodyRef}
+              className="min-h-[520px] max-h-[560px] overflow-y-auto space-y-4 p-6 font-mono text-sm md:p-8 scrollbar-none"
+            >
+              <AnimatePresence>
+                {/* Completed lines */}
+                {completedLines.map((lineIndex) => {
+                  const item = terminalItems[lineIndex];
 
-                if (item.type === "command") {
-                  return (
-                    <div key={lineIndex} className="space-y-2">
-                      {/* Command */}
-                      <div className="flex items-center gap-3">
-                        <span className="text-emerald-400">$</span>
-
-                        <span className="text-slate-200">{item.command}</span>
-                      </div>
-
-                      {/* Output */}
+                  if (item.type === "command") {
+                    return (
                       <motion.div
+                        key={`done-${replayKey}-${lineIndex}`}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="pl-6 leading-relaxed text-slate-500"
+                        className="space-y-1.5"
                       >
-                        {item.output}
+                        <div className="flex items-center gap-3">
+                          <span className="select-none text-emerald-400">
+                            ❯
+                          </span>
+                          <span className="text-slate-200">{item.command}</span>
+                        </div>
+                        <OutputLines output={item.output} />
                       </motion.div>
-                    </div>
-                  );
-                }
+                    );
+                  }
 
-                return (
+                  return (
+                    <motion.div
+                      key={`done-${replayKey}-${lineIndex}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="leading-relaxed text-slate-600 italic"
+                    >
+                      # {item.text}
+                    </motion.div>
+                  );
+                })}
+
+                {/* Current line being typed */}
+                {!idle && currentLine < terminalItems.length && (
                   <motion.div
-                    key={lineIndex}
+                    key={`current-${replayKey}-${currentLine}`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="leading-relaxed text-slate-500"
+                    className="space-y-1.5"
                   >
-                    {item.text}
-                  </motion.div>
-                );
-              })}
-
-              {/* Current line */}
-              {currentLine < terminalItems.length &&
-                !completedLines.includes(currentLine) && (
-                  <div className="space-y-2">
                     {terminalItems[currentLine].type === "command" ? (
                       <>
                         <div className="flex items-center gap-3">
-                          <span className="text-emerald-400">$</span>
-
+                          <span className="select-none text-emerald-400">
+                            ❯
+                          </span>
                           <span className="text-slate-200">
                             {displayedText}
                           </span>
-
                           <motion.span
                             animate={{ opacity: [1, 0] }}
                             transition={{
-                              duration: 0.6,
+                              duration: 0.55,
                               repeat: Infinity,
                               repeatType: "reverse",
                             }}
-                            className="h-5 w-2.5 rounded-sm bg-emerald-400"
+                            className="h-[1.1em] w-[0.55ch] rounded-[2px] bg-emerald-400"
                           />
                         </div>
-
                         {showOutput && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="pl-6 leading-relaxed text-slate-500"
-                          >
-                            {terminalItems[currentLine].output}
-                          </motion.div>
+                          <OutputLines
+                            output={
+                              (
+                                terminalItems[currentLine] as Extract<
+                                  TerminalItem,
+                                  { type: "command" }
+                                >
+                              ).output
+                            }
+                          />
                         )}
                       </>
                     ) : (
-                      <div className="leading-relaxed text-slate-500">
-                        {displayedText}
-
+                      <div className="leading-relaxed text-slate-600 italic">
+                        # {displayedText}
                         <motion.span
                           animate={{ opacity: [1, 0] }}
                           transition={{
-                            duration: 0.6,
+                            duration: 0.55,
                             repeat: Infinity,
                             repeatType: "reverse",
                           }}
-                          className="ml-1 inline-block h-4 w-2 bg-emerald-400"
+                          className="ml-0.5 inline-block h-[0.9em] w-[0.45ch] bg-slate-500"
                         />
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 )}
 
-              {/* Idle cursor */}
-              {completedLines.length === terminalItems.length && (
-                <div className="flex items-center gap-3">
-                  <span className="text-emerald-400">$</span>
-
-                  <motion.span
-                    animate={{ opacity: [1, 0] }}
-                    transition={{
-                      duration: 0.6,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                    }}
-                    className="h-5 w-2.5 rounded-sm bg-emerald-400"
-                  />
-                </div>
-              )}
+                {/* Idle cursor */}
+                {idle && (
+                  <motion.div
+                    key="idle"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center gap-3"
+                  >
+                    <span className="select-none text-emerald-400">❯</span>
+                    <motion.span
+                      animate={{ opacity: [1, 0] }}
+                      transition={{
+                        duration: 0.55,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                      }}
+                      className="h-[1.1em] w-[0.55ch] rounded-[2px] bg-emerald-400"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </motion.div>

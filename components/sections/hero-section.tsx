@@ -21,7 +21,7 @@ const iconMap = {
 
 const metrics = [
   { label: "REST APIs", value: "Spring Boot" },
-  { label: "Backend", value: "Java 11/17" },
+  { label: "Backend", value: "Java" },
   { label: "Database", value: "PostgreSQL" },
   { label: "DevOps", value: "Docker" },
   { label: "Frontend", value: "Vue.js / Nuxt" },
