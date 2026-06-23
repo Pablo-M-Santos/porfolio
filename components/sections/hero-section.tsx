@@ -24,7 +24,7 @@ const metrics = [
   { label: "Backend", value: "Java" },
   { label: "Database", value: "PostgreSQL" },
   { label: "DevOps", value: "Docker" },
-  { label: "Frontend", value: "Vue.js / Nuxt" },
+  { label: "Frontend", value: "Vue | React" },
   { label: "Mobile", value: "Flutter" },
 ];
 

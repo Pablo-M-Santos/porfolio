@@ -10,59 +10,91 @@ import { sectionBackgrounds } from "@/styles/sections-backgrounds";
 
 const projects = [
   {
-    title: "Plataforma de Planejamento Estratégico",
+    title: "Sistema de Gerenciamento de Livros",
+
     problem:
-      "Sistema desenvolvido para gerenciamento operacional com foco em performance, escalabilidade e experiência fluida em diferentes dispositivos.",
+      "Sistema de gerenciamento de biblioteca para controle de livros, locações e usuários, com foco em organização, automação de processos e experiência de uso.",
 
     architecture:
-      "Arquitetura backend com Spring Boot seguindo princípios de Clean Architecture. Desenvolvimento de APIs RESTful documentadas com Swagger e frontend componentizado em Vue.js com gerenciamento de estado utilizando Pinia.",
+      "Aplicação full stack com backend em Java + Spring Boot e frontend em Vue.js. Implementa autenticação JWT, controle de permissões e um dashboard operacional com indicadores por período.",
 
     tags: {
-      backend: ["Java 17", "Spring Boot", "JPA/Hibernate"],
-      database: ["PostgreSQL", "Migrations"],
-      frontend: ["Vue.js 3", "Pinia", "TypeScript"],
-      infra: ["Docker", "GitLab CI"],
+      backend: ["Java 21", "Spring Boot", "Spring Security", "JPA"],
+      database: ["PostgreSQL"],
+      frontend: ["Vue 3", "Quasar", "Chart.js"],
+      infra: ["Docker", "Nginx"],
     },
 
-    github: "https://github.com/pablooliveiraweb",
+    github: "https://github.com/Pablo-M-Santos/gerenciamento-livros",
+
+    preview: "https://gerenciamentolivros.netlify.app/#/",
   },
-
   {
-    title: "Dashboard Analítico Corporativo",
+    title: "Sistema de Gerenciamento de Oficina Mecânica",
 
     problem:
-      "Sistema de visualização de dados com grande volume de informações, priorizando carregamento otimizado, estratégias de cache e experiência fluida para o usuário.",
+      "Sistema web para gerenciamento de oficina mecânica, com foco no controle de clientes, veículos, serviços, peças e ordens de serviço.",
 
     architecture:
-      "Frontend desenvolvido com Nuxt.js utilizando lazy loading, componentização escalável e otimizações de renderização. Integração com APIs REST e gerenciamento eficiente de estado.",
+      "Aplicação frontend desenvolvida em React com TypeScript, utilizando Material UI para interface e JSON Server para simulação de API REST. Organização focada em fluxo operacional e experiência do usuário.",
 
     tags: {
-      backend: ["REST APIs", "Caching"],
-      database: ["PostgreSQL", "Redis"],
-      frontend: ["Nuxt.js", "Vue.js 3", "Pinia"],
-      infra: ["Docker", "Performance Monitoring"],
+      backend: ["JSON"],
+      database: ["JSON"],
+      frontend: ["React", "TypeScript", "Material UI", "Vite"],
+      infra: ["Deploy no Netlify"],
     },
 
-    github: "https://github.com/pablooliveiraweb",
+    github: "https://github.com/Pablo-M-Santos/oficina-mecanica",
+
+    preview: "https://oficina-mecanic.netlify.app/",
   },
-
   {
-    title: "Aplicativo de Gestão Operacional",
+    title: "Sistema de Agendamento de Coleta Reciclável",
 
     problem:
-      "Aplicação mobile multiplataforma criada para complementar sistemas web existentes com sincronização de dados e experiência consistente entre dispositivos.",
+      "Sistema web para agendamento de coleta de materiais recicláveis, permitindo solicitação pública sem login e uma área administrativa protegida para gestão dos agendamentos.",
 
     architecture:
-      "Desenvolvimento mobile utilizando Flutter e Dart com arquitetura em camadas, integração com backend Spring Boot via REST API e gerenciamento de estado local.",
+      "API backend desenvolvida em Java com Spring Boot, utilizando autenticação JWT e controle de permissões. O sistema separa fluxo público de agendamento e área administrativa com gestão de status, materiais e filtros operacionais.",
 
     tags: {
-      backend: ["Spring Boot", "REST API", "JWT"],
-      database: ["MySQL", "SQLite"],
-      frontend: ["Flutter", "Dart"],
-      infra: ["Git", "CI/CD"],
+      backend: [
+        "Java 17",
+        "Spring Boot",
+        "Spring Security",
+        "JWT",
+        "JPA/Hibernate",
+      ],
+      database: ["PostgreSQL"],
+      infra: ["Maven"],
+      frontend: [],
     },
 
-    github: "https://github.com/pablooliveiraweb",
+    github: "https://github.com/Pablo-M-Santos/coleta-reciclaveis",
+
+    preview: null,
+  },
+  {
+    title: "Sistema de Agendamento de Serviços",
+
+    problem:
+      "Sistema web de agendamento criado para organizar horários e serviços de forma simples, com foco em uso diário, rapidez e experiência mobile-first.",
+
+    architecture:
+      "Aplicação desenvolvida com Nuxt 4 e Vue 3, utilizando Firebase para autenticação e persistência de dados. O sistema foi projetado com foco mobile-first e fluxo otimizado para uso rápido no dia a dia.",
+
+    tags: {
+      frontend: ["Nuxt 4", "Vue 3", "TypeScript", "Tailwind CSS", "Nuxt UI"],
+      backend: ["Firebase Auth", "Firestore"],
+      infra: ["Vercel"],
+      tools: ["date-fns"],
+      database: [],
+    },
+
+    github: "https://github.com/Pablo-M-Santos/agendamento",
+
+    preview: "https://agendamento-servico.vercel.app/",
   },
 ];
 
@@ -79,7 +111,7 @@ export function ProjectsSection() {
       id="projects"
       className={`relative py-24 md:py-32 transition-colors duration-700 ${sectionBackgrounds.projects}`}
     >
-     <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#020617] to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#020617] to-transparent pointer-events-none" />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -98,8 +130,8 @@ export function ProjectsSection() {
           </h2>
 
           <p className="max-w-2xl text-lg leading-relaxed text-slate-400">
-            Projetos focados em arquitetura escalável, performance e
-            desenvolvimento de experiências modernas para web e mobile.
+            Alguns projetos que desenvolvi praticando arquitetura, performance e
+            criação de interfaces para web.
           </p>
         </motion.div>
 
@@ -128,21 +160,40 @@ export function ProjectsSection() {
                     </h3>
                   </div>
 
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-fit border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-emerald-400/20 hover:bg-slate-800 hover:text-white"
-                    asChild
-                  >
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-fit border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-emerald-400/20 hover:bg-slate-800 hover:text-white"
+                      asChild
                     >
-                      <Github className="mr-1.5 h-4 w-4" />
-                      GitHub
-                    </a>
-                  </Button>
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="mr-1.5 h-4 w-4" />
+                        GitHub
+                      </a>
+                    </Button>
+
+                    {project.preview && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-fit border border-emerald-400/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 hover:text-emerald-200"
+                        asChild
+                      >
+                        <a
+                          href={project.preview}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Preview
+                        </a>
+                      </Button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Problem & Architecture */}

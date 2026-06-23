@@ -8,7 +8,7 @@ const experiences = [
   {
     role: "Desenvolvedor Front-end Jr",
     company: "SESATECH",
-    period: "2026 - Presente (5 meses)",
+    period: "2026 - Atualmente",
     description:
       "Atuação no desenvolvimento e evolução de aplicações web escaláveis utilizando Vue.js e Nuxt.js. Foco em performance, arquitetura de componentes reutilizáveis e gerenciamento eficiente de dados em sistemas de alta complexidade com grande volume de requisições.",
     achievements: [
@@ -116,19 +116,9 @@ export function ExperienceSection() {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <span className="text-emerald-400 text-sm uppercase tracking-[0.2em] font-medium">
-            Career Journey
-          </span>
-
           <h2 className="text-4xl md:text-5xl font-bold text-slate-50 mt-4 mb-4 tracking-tight">
-            Professional Experience
+            Experiência Profissional
           </h2>
-
-          <p className="text-slate-400 max-w-2xl text-lg leading-relaxed">
-            Trajetoria construida com foco em engenharia de software,
-            desenvolvimento full-stack e criacao de experiencias digitais
-            modernas e escalaveis.
-          </p>
         </motion.div>
 
         <div className="space-y-8">

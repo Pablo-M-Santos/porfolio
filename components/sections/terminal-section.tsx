@@ -205,8 +205,8 @@ export function TerminalSection() {
               Ambiente de Desenvolvimento
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-400">
-              Uma visão rápida sobre trajetória, stack técnica e foco atual em
-              engenharia de software.
+              Um resumo rápido da minha trajetória, das tecnologias que venho
+              usando e do meu foco atual em engenharia de software.
             </p>
           </div>
 
