@@ -3,18 +3,25 @@
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { sectionBackgrounds } from "@/styles/sections-backgrounds";
 
 const certificates = [
   {
     title: "Java & Spring Boot AI Developer Bootcamp",
     issuer: "DIO + Globant",
-    date: "2024",
+    date: "2026",
     description:
       "Bootcamp completo focado em Java, Spring Boot, APIs REST, Clean Code, SOLID e Design Patterns, com projetos práticos e desafios de código.",
     image: "/certificado-1.jpeg",
     credential:
       "https://www.dio.me/certificate/PUMIIVN3/share?utm_source=engagement&utm_medium=email&utm_campaign=globant_java_spring_boot_ai_developer&utm_term=bootcamp-users&utm_content=graduation-certificate-link",
-    technology: "Java",
+    technology: [
+      "Java",
+      "Spring Boot",
+      "Design Patterns",
+      "Solid",
+      "Clean Code",
+    ],
     border: "hover:border-red-400/30",
     accent: "text-red-400",
     badge: "bg-red-400/10 text-red-300 border-red-400/20",
@@ -22,13 +29,13 @@ const certificates = [
   {
     title: "Java & Spring Boot Professional",
     issuer: "Alura + DIO (Almaviva Solutions Bootcamp)",
-    date: "2023",
+    date: "2026",
     description:
       "Formação em Java e Spring Boot com foco em APIs REST, testes automatizados (JUnit), QA, segurança com Spring Security e integração com bancos de dados relacionais, incluindo práticas de BDD, Git e boas práticas de desenvolvimento.",
     image: "/certificado-2.jpeg",
     credential:
       "https://www.dio.me/certificate/SBHNZFLZ/share?utm_source=engagement&utm_medium=email&utm_campaign=almaviva-back-end-com-java-qa&utm_term=bootcamp-users&utm_content=graduation-certificate-link",
-    technology: "Spring Boot",
+    technology: ["Java", "Spring Boot", "JUnit", "SQL", "Maven", "Gradle"],
     border: "hover:border-emerald-400/30",
     accent: "text-emerald-400",
     badge: "bg-emerald-400/10 text-emerald-300 border-emerald-400/20",
@@ -36,13 +43,19 @@ const certificates = [
   {
     title: "APIs com Spring Boot: do início à produção",
     issuer: "Udemy",
-    date: "2022",
+    date: "2024",
     description:
       "Desenvolvimento de APIs REST completas com Spring Boot, aplicando boas práticas de arquitetura, testes automatizados, autenticação com Spring Security, versionamento com Git e deploy em ambiente de nuvem.",
     image: "/certificado-3.jpeg",
     credential:
       "https://www.udemy.com/certificate/UC-018c6742-937f-473d-9628-38e268dee8a3/#",
-    technology: "Spring Boot",
+    technology: [
+      "Java",
+      "Spring Boot",
+      "Testes Unitários",
+      "Integração Contínua",
+      "Spring Security",
+    ],
     border: "hover:border-blue-400/30",
     accent: "text-blue-400",
     badge: "bg-blue-400/10 text-blue-300 border-blue-400/20",
@@ -56,37 +69,18 @@ const certificates = [
     image: "/certificado-4.jpeg",
     credential:
       "https://www.coursera.org/account/accomplishments/verify/LXKEPQEK5MQA",
-    technology: "Data Analytics",
+    technology: [
+      "Data Analytics",
+      "Data Visualization",
+      "Data Ethics",
+      "Spreadsheet Software",
+      "Analytical Thinking",
+    ],
     border: "hover:border-yellow-400/30",
     accent: "text-yellow-400",
     badge: "bg-yellow-400/10 text-yellow-300 border-yellow-400/20",
   },
-  {
-    title: "Introdução à Programação Orientada a Objetos (POO)",
-    issuer: "Curso Online",
-    date: "2024",
-    description:
-      "Introdução aos conceitos de Programação Orientada a Objetos, incluindo os quatro pilares (abstração, encapsulamento, herança e polimorfismo), além da comparação entre programação estruturada e orientada a objetos e exemplos em linguagens como Java, C++ e C#.",
-    image: "/certificado-5.jpeg",
 
-    technology: "OOP",
-    border: "hover:border-purple-400/30",
-    accent: "text-purple-400",
-    badge: "bg-purple-400/10 text-purple-300 border-purple-400/20",
-  },
-  {
-    title: "Crie um site simples com HTML, CSS e JavaScript",
-    issuer: "Curso Online",
-    date: "2023",
-    description:
-      "Introdução ao desenvolvimento web utilizando HTML, CSS e JavaScript, abordando estrutura de páginas, estilização e interatividade, além de conceitos fundamentais para criação de aplicações web no navegador.",
-    image: "/certificado-6.jpeg",
-
-    technology: "Web Development",
-    border: "hover:border-orange-400/30",
-    accent: "text-orange-400",
-    badge: "bg-orange-400/10 text-orange-300 border-orange-400/20",
-  },
   {
     title: "Primeiros Passos em Tecnologia",
     issuer: "DIO",
@@ -95,7 +89,7 @@ const certificates = [
       "Introdução ao universo da tecnologia e desenvolvimento de software, explorando fundamentos do mercado de TI, mentalidade de aprendizado contínuo e principais áreas de atuação em empresas de tecnologia.",
     image: "/certificado-7.png",
     credential: "https://www.dio.me/certificate/JKB3YZXK/share",
-    technology: "Tech Foundations",
+    technology: ["HTML", "CSS", "JavaScript"],
     border: "hover:border-violet-400/30",
     accent: "text-violet-400",
     badge: "bg-violet-400/10 text-violet-300 border-violet-400/20",
@@ -108,15 +102,53 @@ const certificates = [
       "Introdução aos fundamentos de computação em nuvem com AWS, incluindo arquitetura cloud, serviços essenciais da AWS, modelos de precificação, suporte e boas práticas de uso da nuvem.",
     image: "/certificado-8.png",
     credential:
-      "https://www.credly.com/earner/earned/badge/cd155660-dfc9-4cb5-9767-9c94dc3d7f32",
-    technology: "AWS Cloud",
+      "https://www.credly.com/badges/cd155660-dfc9-4cb5-9767-9c94dc3d7f32/public_url",
+    technology: [
+      "AWS Cloud",
+      "Cloud Computing",
+      "AWS Architecture",
+      "AWS Core Services",
+      "Cloud Fundamentals",
+    ],
+    border: "hover:border-orange-400/30",
+    accent: "text-orange-400",
+    badge: "bg-orange-400/10 text-orange-300 border-orange-400/20",
+  },
+  {
+    title: "Introdução à Programação Orientada a Objetos (POO)",
+    issuer: "Fundação Bradesco | Escola Virtual",
+    date: "2023",
+    description:
+      "Introdução aos conceitos de Programação Orientada a Objetos, incluindo os quatro pilares (abstração, encapsulamento, herança e polimorfismo), além da comparação entre programação estruturada e orientada a objetos e exemplos em linguagens como Java, C++ e C#.",
+    image: "/certificado-5.jpeg",
+
+    technology: [
+      "OOP",
+      "Abstração",
+      "Encapsulamento",
+      "Herança",
+      "Polimorfismo",
+      "Java",
+    ],
+    border: "hover:border-purple-400/30",
+    accent: "text-purple-400",
+    badge: "bg-purple-400/10 text-purple-300 border-purple-400/20",
+  },
+  {
+    title: "Crie um site simples com HTML, CSS e JavaScript",
+    issuer: "Fundação Bradesco | Escola Virtual",
+    date: "2023",
+    description:
+      "Introdução ao desenvolvimento web utilizando HTML, CSS e JavaScript, abordando estrutura de páginas, estilização e interatividade, além de conceitos fundamentais para criação de aplicações web no navegador.",
+    image: "/certificado-6.jpeg",
+
+    technology: ["HTML", "CSS", "JavaScript"],
     border: "hover:border-orange-400/30",
     accent: "text-orange-400",
     badge: "bg-orange-400/10 text-orange-300 border-orange-400/20",
   },
 ];
 
-// Gap entre cards em px — deve bater com o gap do flex abaixo
 const GAP = 20;
 
 export function CertificatesSection() {
@@ -131,7 +163,6 @@ export function CertificatesSection() {
   const total = certificates.length;
   const [cols, setCols] = useState(3);
 
-  // Calcula a largura de 1 card a partir do container real
   useEffect(() => {
     function measure() {
       if (!trackRef.current) return;
@@ -148,7 +179,6 @@ export function CertificatesSection() {
 
   const maxIndex = total - cols;
 
-  // Sempre que current mudar, desliza o track
   useEffect(() => {
     if (!cardWidth) return;
     controls.start({
@@ -166,9 +196,11 @@ export function CertificatesSection() {
   }
 
   return (
-    <section id="certificates" className="py-24 md:py-32 relative">
+    <section
+      id="certificates"
+      className={`relative py-24 md:py-32 transition-colors duration-700 ${sectionBackgrounds.stack}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           ref={sectionRef}
           initial={{ opacity: 0, y: 20 }}
@@ -179,19 +211,14 @@ export function CertificatesSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-slate-50 mt-4 mb-4 tracking-tight">
             Certificados
           </h2>
-          <p className="text-slate-400 text-base max-w-xl leading-relaxed">
-            Formações e especializações que estruturam minha prática técnica.
-          </p>
         </motion.div>
 
-        {/* Carousel wrapper */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.15 }}
           className="relative flex items-center gap-4"
         >
-          {/* Seta esquerda */}
           <button
             onClick={prev}
             disabled={current === 0}
@@ -214,9 +241,7 @@ export function CertificatesSection() {
             <ChevronLeft size={18} />
           </button>
 
-          {/* Viewport — esconde o que está fora */}
           <div className="flex-1 overflow-hidden" ref={trackRef}>
-            {/* Track — faixa com todos os cards lado a lado */}
             <motion.div
               animate={controls}
               initial={{ x: 0 }}
@@ -241,7 +266,6 @@ export function CertificatesSection() {
                     flex flex-col gap-4
                   `}
                 >
-                  {/* Imagem - Ajustada para não cortar */}
                   <div className="w-full aspect-video rounded-xl overflow-hidden bg-slate-950 border border-slate-800/80 flex items-center justify-center p-1">
                     <img
                       src={cert.image}
@@ -262,14 +286,17 @@ export function CertificatesSection() {
                     />
                   </div>
 
-                  {/* Badge */}
-                  <span
-                    className={`self-start px-2.5 py-1 text-xs rounded-md border font-medium tracking-wide ${cert.badge}`}
-                  >
-                    {cert.technology}
-                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {cert.technology.map((tech) => (
+                      <span
+                        key={tech}
+                        className={`px-2 py-0.5 text-xs rounded-md border ${cert.badge}`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
 
-                  {/* Conteúdo */}
                   <div className="flex-1 flex flex-col gap-1.5">
                     <h3 className="text-slate-50 font-semibold text-base leading-snug tracking-tight">
                       {cert.title}
@@ -304,7 +331,6 @@ export function CertificatesSection() {
             </motion.div>
           </div>
 
-          {/* Seta direita */}
           <button
             onClick={next}
             disabled={current === maxIndex}
@@ -328,7 +354,6 @@ export function CertificatesSection() {
           </button>
         </motion.div>
 
-        {/* Dots */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}

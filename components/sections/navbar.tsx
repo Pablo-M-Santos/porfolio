@@ -11,6 +11,7 @@ const navItems = [
   { label: "Stack", href: "#stack" },
   { label: "Projetos", href: "#projects" },
   { label: "Experiência", href: "#experience" },
+  { label: "Certificados", href: "#certificates" },
 ];
 
 export function Navbar() {
