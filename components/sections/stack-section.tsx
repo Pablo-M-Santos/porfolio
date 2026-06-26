@@ -12,35 +12,42 @@ const backendStack = [
   "Spring Security",
   "JPA/Hibernate",
   "JUnit",
-  "Swagger",
+  "Mockito",
+  "Flyway",
+  "Swagger/OpenAPI",
+  "REST APIs",
   "PostgreSQL",
   "Oracle",
   "MySQL",
-  "REST APIs",
+  "Maven",
   "Docker",
 ];
 
 const frontendStack = [
   "Vue.js",
-  "React",
   "Nuxt.js",
   "TypeScript",
+  "JavaScript",
   "Pinia",
+  "Vue Router",
   "Quasar",
-  "TailwindCSS",
+  "Tailwind CSS",
+  "HTML5",
+  "CSS3",
 ];
 
 const mobileStack = ["Flutter", "Dart"];
 
 const toolsStack = [
   "Git",
-  "GitLab",
   "GitHub",
+  "GitLab",
+  "Azure DevOps",
   "Postman",
   "IntelliJ IDEA",
   "VS Code",
   "Linux",
-  "Maven",
+  "Figma",
   "Scrum",
   "Kanban",
 ];
